@@ -1,10 +1,10 @@
+import os
 from GetImages import GetImages
 from ScaleImages import ScaleImages
 
-folder_images = '~/waifu2x-ncnn-vulkan-multiple-images/test/Input'
+folder_images = '~/waifu2x-ncnn-vulkan-multiple-images/Test/Input/'
 format_to_find = 'png'
-# don't work with full path, use '~'
-folder_output = '~/~/waifu2x-ncnn-vulkan-multiple-images/test/Output'
+folder_output = '~/waifu2x-ncnn-vulkan-multiple-images/Test/Output/'
 prefix_output = 'CUDA_'
 
 # parameters
@@ -17,8 +17,9 @@ gpu_id = 'auto'
 enable_tta = False  # TTA mode able to reduce several type of artifacts but it's 8x slower than non TTA mode.
 
 if __name__ == '__main__':
-    folder = GetImages(folder_images, format_to_find)
+    folder = GetImages(os.path.expanduser(folder_images), format_to_find)
     list_images = folder.get_list_images()
-    list_names_output = folder.get_list_name_output(prefix_output, folder_output)
+    print(list_images)
+    list_names_output = folder.get_list_name_output(prefix_output, os.path.expanduser(folder_output))
     command = ScaleImages(list_images, list_names_output)
     command.execute_commands(waifu2x, noise_level, scale_level, enable_tta)
