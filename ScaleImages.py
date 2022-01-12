@@ -16,4 +16,5 @@ class ScaleImages:
             list_command.append(command)
 
         for command in list_command:
-            subprocess.call([str(command)], shell=True)
+            a = subprocess.call([str(command)], shell=True)
+            print(a)
