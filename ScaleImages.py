@@ -1,6 +1,11 @@
 import subprocess
 
 
+def prints(number):
+    print('Number of images done: ' + str(number))
+    print('-----------------------------------------------------------------------------------------------')
+
+
 class ScaleImages:
 
     def __init__(self, list_names_to_transform, list_names_output):
@@ -8,7 +13,7 @@ class ScaleImages:
         self.list_output = list_names_output
 
     def execute_commands(self, waifu2x, noise_level, scale, enable_tta):
-
+        i = 0
         list_command = []
         for i in range(len(self.list_input)):
             command = waifu2x + ' -i' + ' ' + self.list_input[i] + ' -o ' + self.list_output[i]
@@ -20,5 +25,8 @@ class ScaleImages:
         for command in list_command:
             try:
                 subprocess.check_output([str(command)], shell=True)
+                prints(i)
+                i += 1
             except subprocess.CalledProcessError as exc:
                 print(exc.output)
+
