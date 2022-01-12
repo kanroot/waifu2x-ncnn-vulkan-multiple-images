@@ -12,9 +12,10 @@ class GetImages:
             self.list_images.append(filename)
         return self.list_images
 
-    def get_list_name_output(self, prefix):
+    def get_list_name_output(self, prefix, folder):
         list_output = []
         for name_original in self.list_images:
             last_slash = name_original.rfind("/") + 1
-            list_output.append(name_original[:last_slash] + prefix + name_original[last_slash:])
+            name_with_prefix = prefix + name_original[last_slash:]
+            list_output.append(folder + name_with_prefix)
         return list_output
