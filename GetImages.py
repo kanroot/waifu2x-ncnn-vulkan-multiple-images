@@ -8,14 +8,19 @@ class GetImages:
         self.list_images = []
 
     def get_list_images(self):
-        for filename in glob.iglob(self.folder + '**/*.' + self.format_to_find, recursive=True):
+        for filename in glob.iglob(self.folder + '*.' + self.format_to_find, recursive=True):
             self.list_images.append(filename)
-        return self.list_images
+        if len(self.list_images) > 0:
+            return self.list_images
+        else:
+            print("Check the folder's path")
 
     def get_list_name_output(self, prefix, folder):
         list_output = []
         for name_original in self.list_images:
             last_slash = name_original.rfind("/") + 1
             name_with_prefix = prefix + name_original[last_slash:]
+            print("Image to transform: " + name_original[last_slash:])
+            print('--------------------------------------------------------------------------------------------------')
             list_output.append(folder + name_with_prefix)
         return list_output
