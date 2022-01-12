@@ -19,7 +19,6 @@ enable_tta = False  # TTA mode able to reduce several type of artifacts but it's
 if __name__ == '__main__':
     folder = GetImages(os.path.expanduser(folder_images), format_to_find)
     list_images = folder.get_list_images()
-    print(list_images)
     list_names_output = folder.get_list_name_output(prefix_output, os.path.expanduser(folder_output))
     command = ScaleImages(list_images, list_names_output)
     command.execute_commands(waifu2x, noise_level, scale_level, enable_tta)
