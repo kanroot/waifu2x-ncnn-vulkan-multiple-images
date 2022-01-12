@@ -1,15 +1,15 @@
 from GetImages import GetImages
 from ScaleImages import ScaleImages
 
-folder_images = '/home/kan/Imágenes/MedievalArt/'
+folder_images = '~/waifu2x-ncnn-vulkan-multiple-images/test/Input'
 format_to_find = 'png'
 # don't work with full path, use '~'
-folder_output = '~/Imágenes/'
+folder_output = '~/~/waifu2x-ncnn-vulkan-multiple-images/test/Output'
 prefix_output = 'CUDA_'
 
 # parameters
 waifu2x = 'waifu2x-ncnn-vulkan'
-noise_level = 0  # denoise level (-1/0/1/2/3, default=0)
+noise_level = 3  # denoise level (-1/0/1/2/3, default=0)
 scale_level = 2  # upscale ratio (1/2/4/8/16/32, default=2)
 tile_size = 0  # tile size (>=32/0=auto, default=0) can be 0,0,0 for multi-gpu
 model_path = 'models-cunet'  # (default=models-cunet/models-upconv_7_anime_style_art_rgb)
