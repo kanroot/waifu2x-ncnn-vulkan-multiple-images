@@ -9,6 +9,7 @@ class GetImages:
 
     def get_list_images(self):
         for filename in glob.iglob(self.folder + '*.' + self.format_to_find, recursive=True):
+            filename = "\'" + filename + "\'"
             self.list_images.append(filename)
         if len(self.list_images) > 0:
             return self.list_images
@@ -22,5 +23,6 @@ class GetImages:
             name_with_prefix = prefix + name_original[last_slash:]
             print("Image to transform: " + name_original[last_slash:])
             print('--------------------------------------------------------------------------------------------------')
-            list_output.append(folder + name_with_prefix)
+            path = "\'" + folder + name_with_prefix
+            list_output.append(path)
         return list_output

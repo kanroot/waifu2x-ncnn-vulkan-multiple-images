@@ -2,15 +2,15 @@ import os
 from GetImages import GetImages
 from ScaleImages import ScaleImages
 
-folder_images = '~/waifu2x-ncnn-vulkan-multiple-images/Test/Input/'
+folder_images = '~/Imágenes/Royal_MS_15_E_VI/'
 format_to_find = 'png'
-folder_output = '~/waifu2x-ncnn-vulkan-multiple-images/Test/Output/'
-prefix_output = 'CUDA_'
+folder_output = '~/Imágenes/Royal_MS_15_E_VI_OUTPUT/'
+prefix_output = 'NCNN_'
 
 # parameters
 waifu2x = 'waifu2x-ncnn-vulkan'
 noise_level = 3  # denoise level (-1/0/1/2/3, default=0)
-scale_level = 2  # upscale ratio (1/2/4/8/16/32, default=2)
+scale_level = 1  # upscale ratio (1/2/4/8/16/32, default=2)
 tile_size = 0  # tile size (>=32/0=auto, default=0) can be 0,0,0 for multi-gpu
 model_path = 'models-cunet'  # (default=models-cunet/models-upconv_7_anime_style_art_rgb)
 gpu_id = 'auto'
