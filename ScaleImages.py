@@ -1,10 +1,8 @@
 import subprocess
 
-
 def prints(number):
     print('Number of images done: ' + str(number))
     print('-----------------------------------------------------------------------------------------------')
-
 
 class ScaleImages:
 
@@ -13,20 +11,19 @@ class ScaleImages:
         self.list_output = list_names_output
 
     def execute_commands(self, waifu2x, noise_level, scale, enable_tta):
-        i = 0
         list_command = []
         for i in range(len(self.list_input)):
-            command = waifu2x + ' -i' + ' ' + self.list_input[i] + ' -o ' + self.list_output[i]
+            command = waifu2x + ' -i ' + self.list_input[i] + ' -o ' + self.list_output[i]
             command += ' -n ' + str(noise_level) + ' -s ' + str(scale)
             if enable_tta:
                 command += ' -x'
             list_command.append(command)
 
-        for command in list_command:
+        for i, command in enumerate(list_command):
             try:
-                subprocess.check_output([str(command)], shell=True)
-                prints(i)
-                i += 1
+                # Ejecuta el comando con shell=True pasando la cadena completa
+                subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
+                prints(i+1)
             except subprocess.CalledProcessError as exc:
-                print(exc.output)
-
+                print(f"Error al ejecutar el comando:\n{command}")
+                print(exc.output.decode())

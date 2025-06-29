@@ -1,5 +1,5 @@
+import os
 import glob
-
 
 class GetImages:
     def __init__(self, folder, format_to_find):
@@ -8,21 +8,22 @@ class GetImages:
         self.list_images = []
 
     def get_list_images(self):
-        for filename in glob.iglob(self.folder + '*.' + self.format_to_find, recursive=True):
-            filename = "\'" + filename + "\'"
-            self.list_images.append(filename)
+        pattern = os.path.join(self.folder, f'*.{self.format_to_find}')
+        for filename in glob.iglob(pattern, recursive=True):
+            self.list_images.append(filename)  # Sin comillas extras
         if len(self.list_images) > 0:
             return self.list_images
         else:
             print("Check the folder's path")
+            return []
 
     def get_list_name_output(self, prefix, folder):
         list_output = []
         for name_original in self.list_images:
-            last_slash = name_original.rfind("/") + 1
-            name_with_prefix = prefix + name_original[last_slash:]
-            print("Image to transform: " + name_original[last_slash:])
+            base_name = os.path.basename(name_original)
+            name_with_prefix = prefix + base_name
+            print("Image to transform: " + base_name)
             print('--------------------------------------------------------------------------------------------------')
-            path = "\'" + folder + name_with_prefix
+            path = os.path.join(folder, name_with_prefix)
             list_output.append(path)
         return list_output

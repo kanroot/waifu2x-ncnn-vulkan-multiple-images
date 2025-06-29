@@ -2,23 +2,25 @@ import os
 from GetImages import GetImages
 from ScaleImages import ScaleImages
 
-folder_images = '~/Imágenes/Royal_MS_15_E_VI/'
-format_to_find = 'png'
-folder_output = '~/Imágenes/Royal_MS_15_E_VI_OUTPUT/'
+folder_images = '~/Imágenes/DER/'
+format_to_find = 'jpg'
+folder_output = '~/Imágenes/DER_OUT/'
 prefix_output = 'NCNN_'
 
 # parameters
 waifu2x = 'waifu2x-ncnn-vulkan'
-noise_level = 3  # denoise level (-1/0/1/2/3, default=0)
-scale_level = 1  # upscale ratio (1/2/4/8/16/32, default=2)
-tile_size = 0  # tile size (>=32/0=auto, default=0) can be 0,0,0 for multi-gpu
-model_path = 'models-cunet'  # (default=models-cunet/models-upconv_7_anime_style_art_rgb)
-gpu_id = 'auto'
-enable_tta = False  # TTA mode able to reduce several type of artifacts but it's 8x slower than non TTA mode.
+noise_level = 3
+scale_level = 1
+enable_tta = False
 
 if __name__ == '__main__':
-    folder = GetImages(os.path.expanduser(folder_images), format_to_find)
+    folder_images_exp = os.path.expanduser(folder_images)
+    folder_output_exp = os.path.expanduser(folder_output)
+    folder = GetImages(folder_images_exp, format_to_find)
     list_images = folder.get_list_images()
-    list_names_output = folder.get_list_name_output(prefix_output, os.path.expanduser(folder_output))
+    if not list_images:
+        print("No se encontraron imágenes para procesar.")
+        exit(1)
+    list_names_output = folder.get_list_name_output(prefix_output, folder_output_exp)
     command = ScaleImages(list_images, list_names_output)
     command.execute_commands(waifu2x, noise_level, scale_level, enable_tta)
